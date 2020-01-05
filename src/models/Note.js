@@ -29,6 +29,8 @@ const NoteSchema = new Schema({
     type: String,
     required: true,
   },
+}, {
+  timestamps: true
 });
 
 mongoose.model('notes', NoteSchema);
