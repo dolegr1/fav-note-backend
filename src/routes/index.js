@@ -9,12 +9,12 @@ router.post('/user/login', user.userLogin);
 router.post('/user/logout', user.userLogout);
 router.post('/user/register', user.userRegister);
 
-router.get('/notes', note.getAllNotes);
-router.get('/notes/type', note.getAllNotesOfOneType);
+router.get('/notes', userAuth, note.getAllNotes);
+router.get('/notes/type', userAuth, note.getAllNotesOfOneType);
 
-router.post('/note', note.addNote);
-router.get('/note/:id', note.getSingleNote);
-router.put('/note/:id', note.updateNote);
-router.delete('/note/:id', note.deleteNote);
+router.post('/note', userAuth, note.addNote);
+router.get('/note/:id', userAuth, note.getSingleNote);
+router.put('/note/:id', userAuth, note.updateNote);
+router.delete('/note/:id', userAuth, note.deleteNote);
 
 module.exports = router;

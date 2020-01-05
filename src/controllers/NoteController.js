@@ -5,33 +5,32 @@ const Note = mongoose.model('notes');
 
 const note = {
   addNote: async (req, res) => {
-      const newNoteContent = {
-        type: req.body.type, // twitters, articles, notes
-        title: req.body.title,
-        content: req.body.content,
-        articleUrl: req.body.articleUrl,
-        twitterName: req.body.twitterName,
-        userID: req.body.userID,
-      };
+    const newNoteContent = {
+      type: req.body.type, // twitters, articles, notes
+      title: req.body.title,
+      content: req.body.content,
+      articleUrl: req.body.articleUrl,
+      twitterName: req.body.twitterName,
+      userID: req.user._id,
+    };
 
-      try {
-        const newNote = await new Note(newNoteContent).save((err, note) => {
-          res.send(note);
-        });
-        console.log('Note saved:', newNote);
-      } catch (err) {
-        console.log(err);
-        res.sendStatus(500);
-      }
+    try {
+      const newNote = await new Note(newNoteContent).save((err, note) => {
+        res.send(note);
+      });
+      console.log('Note saved:', newNote);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
   },
   getAllNotes: (req, res) => {
-    console.log(req);
-    Note.find({userID: req.query.userID})
+    Note.find({ userID: req.user._id })
       .then((results) => res.send(results))
       .catch((err) => console.log(err));
   },
   getAllNotesOfOneType: (req, res) => {
-    Note.find({userID: req.query.userID, type: req.query.type})
+    Note.find({ userID: req.user._id, type: req.query.type })
       .then((results) => res.send(results))
       .catch((err) => console.log(err));
   },
