@@ -1,3 +1,5 @@
+import userAuth from '../middlewears/userAuth';
+
 const express = require('express');
 const { note, user } = require('../controllers');
 
